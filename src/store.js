@@ -1,0 +1,31 @@
+import {
+  legacy_createStore as createStore,
+  compose,
+  applyMiddleware,
+} from 'redux';
+import thunk from 'redux-thunk';
+import userReducer from './reducers/userReducers';
+import { fetchUserInfoFromStorage } from './utils/localStorage';
+
+const initialState = {
+  userSignin: localStorage.getItem('userInfo')
+    ? fetchUserInfoFromStorage()
+    : {
+        auth: {
+          jwtToken: '',
+        },
+        userInfo: {},
+      },
+};
+
+const reducer = userReducer;
+
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  reducer,
+  initialState,
+  composeEnhancer(applyMiddleware(thunk)),
+);
+
+export default store;

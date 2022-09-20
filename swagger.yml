@@ -1,0 +1,187 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation
+  description: Contains all available API endpoints in this codebase
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /transactions:
+    get:
+      tags:
+        - Transactions Module
+      summary: return all transactions for a user
+      description: user's transactions
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Data Successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '404':
+          description: Transaction not found
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    
+    
+  /transactions/{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Find transaction by ID
+      description: For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
+      parameters:
+        - in: path
+          type: string
+          name: id
+          description: ID of transaction to return
+          required: true
+        - in: header
+          type: string
+          name: Authorization
+          description: Signup Payload
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction Details Successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '404':
+          description: Transaction not found
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Update for transaction
+      description: Updated information about a transaction
+      parameters:
+        - in: path
+          type: string
+          name: id
+          description: ID of transaction to return
+          required: true
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: add notes transaction attributes
+          required: true
+          schema:
+            $ref: '#/definitions/ApiResponse'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Updated transaction successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '404':
+          description: Transaction not found
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Delete transaction by ID
+      description: For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
+      parameters:
+        - in: path
+          type: string
+          name: id
+          description: ID of transaction to return
+          required: true
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Delete transaction Successfully
+          schema:
+            $ref: '#/definitions/DeleteResponse'
+        '404':
+          description: Transaction not found
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    
+  
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+  
+definitions:
+  ApiResponse:
+    type: object
+    properties:
+      id:
+        type: number
+      date:
+        type: number
+      description:
+        type: string
+      amount:
+        type: number
+      balance:
+        type: number
+      typeTransaction:
+        type: string
+      category:
+        type: string
+      notes:
+        type: string
+  AddResponse:
+    type: object
+    properties:
+      notes:
+        type: string
+  PutResponse:
+    type: object
+    properties:
+      category:
+        type: string
+        
+  DeleteResponse:
+    type: object
+    properties:
+      message:
+        type: string
+      
+      
+      
+  
