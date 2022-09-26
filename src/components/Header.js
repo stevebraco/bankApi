@@ -8,10 +8,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const userSignin = useSelector((state) => state.userSignin);
 
-  const {
-    userInfo: { firstName },
-    auth: { jwtToken },
-  } = userSignin;
+  const { userInfo, auth } = userSignin;
 
   const handleSignout = () => {
     setIsOpen(false);
@@ -37,32 +34,33 @@ const Header = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div className="main-nav-icon" onClick={handleIcon}>
-        <i className="fa fa-bars"></i>
+        <i className="fa fa-bars" />
       </div>
       <div className={isOpen ? 'main-nav-link main-nav-open' : 'main-nav-link'}>
-        {jwtToken && firstName ? (
+        {auth?.jwtToken && userInfo?.firstName ? (
           <>
             <NavLink
               to="/profile"
               className="main-nav-item"
               onClick={handleCloseMenu}
             >
-              <i className="fa fa-user-circle"></i> {firstName}
+              <i className="fa fa-user-circle" />
+              {userInfo?.firstName}
             </NavLink>
             <NavLink to="/" onClick={handleSignout} className="main-nav-item">
-              <i className="fa fa-sign-out"></i> Sign Out
+              <i className="fa fa-sign-out" />
+              Sign Out
             </NavLink>
           </>
         ) : (
-          <>
-            <NavLink
-              to="/signin"
-              className="main-nav-item"
-              onClick={handleCloseMenu}
-            >
-              <i className="fa fa-user-circle"></i> Sign In
-            </NavLink>
-          </>
+          <NavLink
+            to="/signin"
+            className="main-nav-item"
+            onClick={handleCloseMenu}
+          >
+            <i className="fa fa-user-circle" />
+            Sign In
+          </NavLink>
         )}
       </div>
     </nav>

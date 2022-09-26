@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchToken, userProfile } from '../actions/userAction';
 import { useNavigate } from 'react-router-dom';
+import { fetchToken, userProfile } from '../actions/userAction';
+import Error from '../components/Error';
+import Loading from '../components/Loading';
 
 const SignInPage = () => {
   const navigate = useNavigate();
@@ -11,7 +13,7 @@ const SignInPage = () => {
   const userSignin = useSelector((state) => state.userSignin);
   const {
     auth: { loading: loadingAuth, error: errorAuth, jwtToken },
-    userInfo: { message, error },
+    userInfo,
   } = userSignin;
 
   useEffect(() => {
@@ -31,7 +33,6 @@ const SignInPage = () => {
         remember: remember.checked,
       }),
     );
-    console.dir(e.target);
   };
 
   return (
@@ -39,10 +40,10 @@ const SignInPage = () => {
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon" />
         <h1>Sign In</h1>
-        {loadingAuth && <p>loading...</p>}
-        {errorAuth && <p>{errorAuth}</p>}
-        {error && <p>{error}</p>}
-        {message && <p>{message}</p>}
+        {loadingAuth && <Loading />}
+        {errorAuth && <Error error={errorAuth} />}
+        {userInfo?.error && <Error error={userInfo.error} />}
+        {/* {userInfo?.message && <p>{userInfo.message}</p>} */}
         <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
