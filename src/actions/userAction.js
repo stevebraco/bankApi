@@ -40,7 +40,7 @@ export const fetchToken = (formData) => async (dispatch) => {
 };
 
 export const userProfile = (token) => async (dispatch, getState) => {
-  dispatch({ type: USER_PROFILE_LOADING, payload: token });
+  dispatch({ type: USER_PROFILE_LOADING });
   try {
     const { data } = await axios.post(
       'http://localhost:3001/api/v1/user/profile',
@@ -51,7 +51,6 @@ export const userProfile = (token) => async (dispatch, getState) => {
         },
       },
     );
-    console.log(data);
     dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
     const {
       userSignin: { auth },
@@ -62,8 +61,6 @@ export const userProfile = (token) => async (dispatch, getState) => {
     }
   } catch (error) {
     dispatch({ type: USER_PROFILE_ERROR, payload: error.message });
-
-    console.log(error);
   }
 };
 
@@ -73,7 +70,7 @@ export const signout = () => async (dispatch) => {
 };
 
 export const editUserInfo = (formData) => async (dispatch, getState) => {
-  dispatch({ type: USER_EDIT_LOADING, payload: formData });
+  dispatch({ type: USER_EDIT_LOADING });
   try {
     const {
       auth: { jwtToken },
@@ -96,7 +93,7 @@ export const editUserInfo = (formData) => async (dispatch, getState) => {
 };
 
 export const signup = (formData) => async (dispatch) => {
-  dispatch({ type: USER_SIGNUP_LOADING, payload: formData });
+  dispatch({ type: USER_SIGNUP_LOADING });
 
   try {
     const { data } = await axios.post(
