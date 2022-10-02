@@ -20,12 +20,12 @@ const initialState = {
 
 const reducer = userReducer;
 
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   reducer,
   initialState,
-  composeEnhancer(applyMiddleware(thunk)),
+  composeEnhancers(applyMiddleware(thunk)),
 );
 
 export default store;
