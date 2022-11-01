@@ -53,14 +53,24 @@ const Header = () => {
             </NavLink>
           </>
         ) : (
-          <NavLink
-            to="/signin"
-            className="main-nav-item"
-            onClick={handleCloseMenu}
-          >
-            <i className="fa fa-user-circle" />
-            Sign In
-          </NavLink>
+          <>
+            <NavLink
+              to="/signin"
+              className="main-nav-item"
+              onClick={handleCloseMenu}
+            >
+              <i className="fa fa-user-circle" />
+              Sign In
+            </NavLink>
+            <NavLink
+              to="/signup"
+              className="main-nav-item"
+              onClick={handleCloseMenu}
+            >
+              <i className="fa fa-user-circle" />
+              Sign Up
+            </NavLink>
+          </>
         )}
       </div>
     </nav>

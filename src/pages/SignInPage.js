@@ -7,9 +7,7 @@ import Loading from '../components/Loading';
 
 const SignInPage = () => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-
   const userSignin = useSelector((state) => state.userSignin);
   const {
     auth: { loading: loadingAuth, error: errorAuth, jwtToken },
@@ -19,7 +17,7 @@ const SignInPage = () => {
   useEffect(() => {
     if (jwtToken) {
       dispatch(userProfile(jwtToken));
-      navigate('/');
+      navigate('/profile');
     }
   }, [navigate, jwtToken, dispatch]);
 
@@ -43,7 +41,6 @@ const SignInPage = () => {
         {loadingAuth && <Loading />}
         {errorAuth && <Error error={errorAuth} />}
         {userInfo?.error && <Error error={userInfo.error} />}
-        {/* {userInfo?.message && <p>{userInfo.message}</p>} */}
         <form onSubmit={handleSubmit}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>

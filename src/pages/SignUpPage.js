@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../actions/userAction';
@@ -12,26 +12,24 @@ const SignUp = () => {
 
   const userSignin = useSelector((state) => state.userSignin);
   const {
-    userInfo: { message, isSignUp, loading, error },
+    userInfo: { message, loading, error },
   } = userSignin;
-
-  useEffect(() => {
-    if (isSignUp) {
-      navigate('/');
-    }
-  }, [dispatch, isSignUp, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const [userName, pass, firstName, lastName] = e.target;
-    dispatch(
-      signup({
-        email: userName.value,
-        password: pass.value,
-        firstName: firstName.value,
-        lastName: lastName.value,
-      }),
-    );
+
+    if (userName.value && pass.value && firstName.value && lastName.value) {
+      dispatch(
+        signup({
+          email: userName.value,
+          password: pass.value,
+          firstName: firstName.value,
+          lastName: lastName.value,
+        }),
+      );
+      navigate('/');
+    }
   };
 
   return (

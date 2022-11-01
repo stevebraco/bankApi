@@ -150,7 +150,6 @@ const userReducer = (state, action) => {
           ...userSignin,
           userInfo: {
             ...userSignin.userInfo,
-            isSignUp: true,
             message: action.payload,
           },
         },

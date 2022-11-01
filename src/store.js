@@ -8,14 +8,12 @@ import userReducer from './reducers/userReducers';
 import { fetchUserInfoFromStorage } from './utils/localStorage';
 
 const initialState = {
-  userSignin: localStorage.getItem('userInfo')
-    ? fetchUserInfoFromStorage()
-    : {
-        auth: {
-          jwtToken: '',
-        },
-        userInfo: {},
-      },
+  userSignin: fetchUserInfoFromStorage() ?? {
+    auth: {
+      jwtToken: '',
+    },
+    userInfo: {},
+  },
 };
 
 const reducer = userReducer;
